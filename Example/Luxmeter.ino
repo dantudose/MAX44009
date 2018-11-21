@@ -5,15 +5,16 @@ MAX44009 light;
  
 void setup() 
 {
+	Serial.begin(9600);
+	Wire.begin();
+	
+	delay(500);
+	
 	if(light.begin())
   	{
     		Serial.println("Could not find a valid MAX44009 sensor, check wiring!");
 		while(1);
 	}
-
-	delay(500);
-	Serial.begin(9600);
-	delay(500);
 }
  
 void loop() 
