@@ -2,4 +2,4 @@
 Arduino library for the MAX44009 luxmeter chip used in the popular CJMCU breakout boards.
 
 ![CJMCU Breakout]
-(https://github.com/dantudose/misc/blob/master/max44009.jpg?300)
+(https://github.com/dantudose/misc/blob/master/max44009.jpg)
