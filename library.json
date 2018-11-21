@@ -1,0 +1,13 @@
+{
+    "name": "MAX44009 library",
+    "version": "1.0",
+    "keywords": "sensor luxmeter light ALS",
+    "description": "Library for the MAX44009 Ambient Light Sensor IC",
+    "repository":
+    {
+        "type": "git",
+        "url": "https://github.com/dantudose/MAX44009.git"
+    },
+    "frameworks": "arduino",
+    "platforms": "*"
+}
