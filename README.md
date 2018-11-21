@@ -3,3 +3,6 @@ Arduino library for the MAX44009 luxmeter chip used in the popular CJMCU breakou
 
 <img src="https://github.com/dantudose/misc/blob/master/max44009.jpg" height="300"/>
 
+Revision history:
+1. ver 1.0.0 - added support for Wire library
+
