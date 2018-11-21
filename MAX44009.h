@@ -7,7 +7,7 @@
 
 class MAX44009 {
     public:
-        MAX44009();
+		MAX44009();
 		
 		int begin();
 		        
