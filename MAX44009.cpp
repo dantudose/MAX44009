@@ -5,51 +5,41 @@
 MAX44009::MAX44009() {}
 
 
-void MAX44009::begin()
+int MAX44009::begin()
 {
-	// comment this line if using Wire.h
-	I2c.begin();
-	
-	// uncomment this line if using Wire.h
-	// Wire.begin(); 
-}
-
-uint8_t MAX44009::read_register(uint8_t addr) {
-    
-	I2c.write(MAX_ADDR, addr);
-    I2c.read(MAX_ADDR, (uint8_t) 1);
-    
-	return I2c.receive();
-}
-
-
-/* Alternate funtion if using Wire.h
-
-uint8_t MAX44009::read_register(uint8_t addr) {
- 
 	Wire.beginTransmission(MAX_ADDR);
-	Wire.write(addr);
-	Wire.endTransmission();
-	 
-	Wire.requestFrom(MAX_ADDR,1);
-	 
-	return Wire.read();
+	Wire.write(0x02);
+	Wire.write(0x40);
+	return Wire.endTransmission();
 }
-*/
+
 
 float MAX44009::get_lux(void)
 {
-	int luxHigh = read_register(0x03);
+	unsigned int data[2];
+	Wire.beginTransmission(MAX_ADDR);
+	Wire.write(0x03);
+	Wire.endTransmission();
+ 
+	// Request 2 bytes of data
+	Wire.requestFrom(MAX_ADDR, 2);
+ 
+	// Read 2 bytes of data luminance msb, luminance lsb
+	if (Wire.available() == 2)
+	{
+    	data[0] = Wire.read();
+    	data[1] = Wire.read();
+	}
+ 
+	// Convert the data to lux
+	int exponent = (data[0] & 0xF0) >> 4;
+	int mantissa = ((data[0] & 0x0F) << 4) | (data[1] & 0x0F);
 	
-	int luxLow = read_register(0x04);
-	
-	int exponent = (luxHigh & 0xf0) >> 4;
-	
-	int mant = (luxHigh & 0x0f) << 4 | luxLow;
-	
-	
-	return (float)(((0x00000001 << exponent) * (float)mant) * 0.045);
-	//return (float)((pow(2,exponent) * mant) * 0.045);
+	//float luminance = pow(2, exponent) * mantissa * 0.045;
+	float luminance = (float)(((0x00000001 << exponent) * (float)mantissa) * 0.045);
+  
+	return luminance;
+
  
 }
 
