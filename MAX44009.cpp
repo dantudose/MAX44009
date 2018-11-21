@@ -1,9 +1,7 @@
 #include "MAX44009.h"
 #include <math.h>
 
-
 MAX44009::MAX44009() {}
-
 
 int MAX44009::begin()
 {
@@ -38,9 +36,7 @@ float MAX44009::get_lux(void)
 	//float luminance = pow(2, exponent) * mantissa * 0.045;
 	float luminance = (float)(((0x00000001 << exponent) * (float)mantissa) * 0.045);
   
-	return luminance;
-
- 
+	return luminance; 
 }
 
  
