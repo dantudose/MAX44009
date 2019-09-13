@@ -7,7 +7,7 @@ int MAX44009::begin()
 {
 	Wire.beginTransmission(MAX_ADDR);
 	Wire.write(0x02);
-	Wire.write(0x40);
+	Wire.write(0x00); // changed from 0x40
 	return Wire.endTransmission();
 }
 
