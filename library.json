@@ -1,6 +1,6 @@
 {
     "name": "MAX44009 library",
-    "version": "1.0",
+    "version": "1.0.2",
     "keywords": "sensor luxmeter light ALS cjmcu MAX44009",
     "description": "Library for the MAX44009 Ambient Light Sensor IC",
     "authors": [{
