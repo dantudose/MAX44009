@@ -1,5 +1,5 @@
 #include "MAX44009.h"
-#include <math.h>
+//#include <math.h>  //use for pow() function
 
 MAX44009::MAX44009() {}
 
@@ -8,6 +8,7 @@ int MAX44009::begin()
 	Wire.beginTransmission(MAX_ADDR);
 	Wire.write(0x02);
 	Wire.write(0x00); // changed from 0x40
+	
 	return Wire.endTransmission();
 }
 
@@ -26,7 +27,7 @@ float MAX44009::get_lux(void)
 	// Read first byte of data
 	if (Wire.available() == 1)
 	{
-    		data[0] = Wire.read();
+		data[0] = Wire.read();
 	}
 
     	Wire.beginTransmission(MAX_ADDR);
@@ -39,7 +40,7 @@ float MAX44009::get_lux(void)
 	// Read second byte of data
 	if (Wire.available() == 1)
 	{
-    		data[1] = Wire.read();
+		data[1] = Wire.read();
 	}
  
 	// Convert the data to lux
@@ -47,7 +48,7 @@ float MAX44009::get_lux(void)
 	int mantissa = ((data[0] & 0x0F) << 4) | (data[1] & 0x0F);
 	
 	//float luminance = pow(2, exponent) * mantissa * 0.045;
-    	float luminance = (float)(((0x00000001 << exponent) * (float)mantissa) * 0.045);
+	float luminance = (float)(((0x00000001 << exponent) * (float)mantissa) * 0.045);
 	
 	return luminance; 
 }
