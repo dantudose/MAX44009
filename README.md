@@ -5,4 +5,5 @@ Arduino library for the MAX44009 luxmeter chip used in the popular CJMCU breakou
 
 Revision history:
 1. rev. 1.0.0 - added support for Wire library
-
+2. rev. 1.0.1 - fixed initialization bug
+3. rev. 1.0.2 - fixed lux reading mode
