@@ -17,16 +17,28 @@ float MAX44009::get_lux(void)
 	unsigned int data[2];
 	
 	Wire.beginTransmission(MAX_ADDR);
-	Wire.write(0x03);
+	Wire.write(0x03); //request high-byte register data
 	Wire.endTransmission();
- 
-	// Request 2 bytes of data
-	Wire.requestFrom(MAX_ADDR, 2);
- 
-	// Read 2 bytes of data luminance msb, luminance lsb
-	if (Wire.available() == 2)
+
+	// Request 1 byte of data
+	Wire.requestFrom(MAX_ADDR, 1);
+
+	// Read first byte of data
+	if (Wire.available() == 1)
 	{
     		data[0] = Wire.read();
+	}
+
+    	Wire.beginTransmission(MAX_ADDR);
+	Wire.write(0x04); //request low-byte register data
+	Wire.endTransmission();
+
+	// Request 1 byte of data
+	Wire.requestFrom(MAX_ADDR, 1);
+
+	// Read second byte of data
+	if (Wire.available() == 1)
+	{
     		data[1] = Wire.read();
 	}
  
@@ -35,7 +47,7 @@ float MAX44009::get_lux(void)
 	int mantissa = ((data[0] & 0x0F) << 4) | (data[1] & 0x0F);
 	
 	//float luminance = pow(2, exponent) * mantissa * 0.045;
-	float luminance = (float)(((0x00000001 << exponent) * (float)mantissa) * 0.045);
-  
+    	float luminance = (float)(((0x00000001 << exponent) * (float)mantissa) * 0.045);
+	
 	return luminance; 
 }
